@@ -7,7 +7,7 @@ See [Interlok JMX over JMS](http://interlok.adaptris.net/interlok-docs/advanced-
 ## Running
 
 ```
-$ docker-compose -f docker-compose.yaml up
+$ docker-compose up
 ```
 
 
