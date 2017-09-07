@@ -1,0 +1,28 @@
+#
+version: '3.2'
+services:
+  activemq:
+    image: rmohr/activemq:5.10.0
+    hostname: activemq.local
+    links:
+      - interlok_manager
+      - interlok
+  interlok_manager:
+    build:
+      context: .
+      dockerfile: Dockerfile.manager
+    image: mcwarman/interlok-jmx-manager:snapshot
+    hostname: interlok_manager.local
+    environment:
+      JVM_ARGS: -Xmx512m
+    ports:
+      - 8080:8080
+  interlok:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    image: mcwarman/interlok-jmx-worker:snapshot
+    environment:
+      JVM_ARGS: -Xmx512m
+    links:
+      - interlok_manager
