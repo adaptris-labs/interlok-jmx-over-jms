@@ -2,7 +2,7 @@
 
 Sample docker project that demostrates the Interlok JMX over JMS capability.
 
-See [Interlok JMX over JMS](http://interlok.adaptris.net/interlok-docs/advanced-failover.html) documentation for more detail.
+See [Interlok JMX over JMS](http://interlok.adaptris.net/interlok-docs/advanced-jmx-jms.html) documentation for more detail.
 
 ## Running
 
