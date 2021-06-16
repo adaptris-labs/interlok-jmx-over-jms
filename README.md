@@ -1,4 +1,4 @@
-# interlok-jmx-over-jms
+# interlok-jmx-over-jms [![check](https://github.com/adaptris-labs/interlok-jmx-over-jms/actions/workflows/gradle.yaml/badge.svg)](https://github.com/adaptris-labs/interlok-jmx-over-jms/actions/workflows/gradle.yaml)
 
 Sample docker project that demostrates the Interlok JMX over JMS capability using ActiveMQ as the underlying JMS provider. It also showcases how we can override various bootstrap properties via use of system properties
 
