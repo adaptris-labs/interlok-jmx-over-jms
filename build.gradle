@@ -1,0 +1,32 @@
+plugins {
+  id "com.palantir.docker" version "0.26.0"
+  id 'com.palantir.docker-compose' version "0.26.0"
+}
+
+ext {
+  interlokParentGradle = 'https://raw.githubusercontent.com/adaptris/interlok-build-parent/main/v4/build.gradle'
+  includeWar = 'true'
+}
+
+allprojects {
+  apply from: "${interlokParentGradle}"
+}
+
+dependencies {
+  interlokRuntime ("com.adaptris:interlok-apache-http:$interlokVersion") { changing= true}
+  interlokRuntime ("com.adaptris:interlok-jmx-activemq:$interlokVersion") { changing= true}
+  interlokJavadocs group: "com.adaptris", name: "interlok-apache-http", version: "$interlokVersion", classifier: "javadoc", changing: true, transitive: false
+}
+
+docker {
+  name "adaptrislabs/interlok-jmx-jms"
+  tags 'latest'
+  pull true
+  files tasks.installDist.outputs
+}
+
+dockerCompose {
+  dockerComposeFile "docker-compose.yaml"
+}
+
+docker.dependsOn check,installDist

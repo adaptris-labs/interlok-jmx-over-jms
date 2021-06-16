@@ -1,3 +1,0 @@
-FROM mcwarman/interlok-jmx-manager:snapshot 
-
-ADD config/worker /opt/interlok/config

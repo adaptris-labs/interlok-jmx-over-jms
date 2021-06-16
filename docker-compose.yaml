@@ -2,27 +2,18 @@
 version: '3.2'
 services:
   activemq:
-    image: rmohr/activemq:5.10.0
+    image: lewinc/activemq:latest-zulu-alpine
     hostname: activemq.local
-    links:
-      - interlok_manager
-      - interlok
-  interlok_manager:
-    build:
-      context: .
-      dockerfile: Dockerfile.manager
-    image: mcwarman/interlok-jmx-manager:snapshot
-    hostname: interlok_manager.local
-    environment:
-      JVM_ARGS: -Xmx512m
-    ports:
-      - 8080:8080
+    container_name: jmx-jms-demo-activemq
   interlok:
-    build:
-      context: .
-      dockerfile: Dockerfile.worker
-    image: mcwarman/interlok-jmx-worker:snapshot
+    image: adaptrislabs/interlok-jmx-jms:latest
+    container_name: jmx-jms-demo-interlok
+    hostname: interlok
+    ports:
+     - "8080:8080"
     environment:
-      JVM_ARGS: -Xmx512m
+      - JVM_ARGS=-Dinterlok.mgmt.components=jetty:jmx -Dinterlok.jmxserviceurl=service:jmx:activemq:///tcp://activemq:61616?jmx.type=Topic&jmx.destination=myJmxTopic
+    depends_on:
+      - activemq
     links:
-      - interlok_manager
+      - activemq:activemq
